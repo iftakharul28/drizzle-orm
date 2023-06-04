@@ -21,11 +21,12 @@ const RegisterForm = () => {
   async function onSubmit(values: registertype) {
     try {
       const data = await Http.Post(
-        "user/addUser",
+        "user/signup",
         JSON.stringify({
           name: values.name,
           email: values.email,
           password: values.password,
+          role: "user",
         })
       );
       console.log(data);

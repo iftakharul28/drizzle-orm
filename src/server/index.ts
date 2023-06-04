@@ -1,10 +1,10 @@
-import mysql from "mysql2/promise";
-import { drizzle } from "drizzle-orm/mysql2";
 import lucia from "lucia-auth";
+import { nextjs } from "lucia-auth/middleware";
 import { mysql2 } from "@lucia-auth/adapter-mysql";
 import * as schema from "./schema";
 import * as dotenv from "dotenv";
-import { nextjs } from "lucia-auth/middleware";
+import mysql from "mysql2/promise";
+import { drizzle } from "drizzle-orm/mysql2";
 dotenv.config();
 const connectionPool = mysql.createPool({
   uri: process.env.DATABASE_URL,
@@ -27,3 +27,5 @@ export const auth = lucia({
   },
 });
 export const db = drizzle(connectionPool, { schema });
+
+export type Auth = typeof auth;

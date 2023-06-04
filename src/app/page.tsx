@@ -1,8 +1,9 @@
 import Image from "next/image";
 import { eq, sql } from "drizzle-orm";
-import { db } from "@/server";
+import { auth, db } from "@/server";
 import { user } from "@/server/schema";
-const getData = async () => {
+import { cookies } from "next/headers";
+const getData = async (id: string) => {
   // return await db.select().from(users);
   // await db.select().from(users).where(eq(users.id, 1));
   //return await db.select().from(users).where(sql`${users.id} = 0`);
@@ -12,11 +13,14 @@ const getData = async () => {
   //     Name: users.Name,
   //   })
   //   .from(users);
-  const result = await db.select().from(user).where(eq(user.id, 1)).limit(1);
+  const result = await db.select().from(user).where(eq(user.id, id)).limit(1);
   return result.length ? result?.[0] : {};
 };
 export default async function Home() {
-  const userList = await getData();
+  const authRequest = auth.handleRequest({ cookies });
+  const { user } = await authRequest.validateUser();
+  console.log(user);
+  const userList = await getData(user?.userId ? user?.userId : "");
   return (
     <main className='flex min-h-screen flex-col items-center justify-between p-24'>
       <div className='z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex'>
