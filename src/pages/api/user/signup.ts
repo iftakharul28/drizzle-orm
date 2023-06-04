@@ -21,9 +21,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
     const session = await auth.createSession(user.userId);
     authRequest.setSession(session); // set cookies
-    return res.status(400).json(session); // redirect user on account creations
+    return res.status(201).json(session); // redirect user on account creations
   } catch (e) {
     // username taken
-    return res.status(400).json({});
+    return res.status(400).json(e);
   }
 }
