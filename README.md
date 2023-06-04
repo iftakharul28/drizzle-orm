@@ -8,6 +8,10 @@ First, run the development server:
 npm run dev
 # or
 yarn dev
+yarn drizzle-kit push:mysql
+yarn drizzle-kit introspect:mysql
+yarn drizzle-kit up:mysql
+yarn drizzle-kit generate:mysql
 # or
 pnpm dev
 ```
