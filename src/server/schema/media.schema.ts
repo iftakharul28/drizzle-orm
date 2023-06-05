@@ -1,4 +1,6 @@
 import { int, mysqlTable, varchar, timestamp } from "drizzle-orm/mysql-core";
+import { productSchema } from "./product.schema";
+import { relations } from "drizzle-orm";
 
 export const mediaSchema = mysqlTable("media", {
   id: int("id").autoincrement().primaryKey(),
@@ -8,3 +10,6 @@ export const mediaSchema = mysqlTable("media", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
 });
+export const mediaRelations = relations(mediaSchema, ({ many }) => ({
+  products: many(productSchema),
+}));

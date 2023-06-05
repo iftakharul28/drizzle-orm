@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { eq, sql } from "drizzle-orm";
-import { auth, db } from "@/server";
+import { db } from "@/server";
+import  auth  from "@/server/auth";
 import { user } from "@/server/schema";
 import { cookies } from "next/headers";
 const getData = async (id: string) => {
